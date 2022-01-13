@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', 
+    'channels',
     'project_sundays', 
     'corsheaders', 
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    
 ]
 
 REST_FRAMEWORK = {
@@ -137,4 +139,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Channels
+ASGI_APPLICATION = 'project_sundays.asgi.application'
 

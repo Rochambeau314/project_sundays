@@ -1,15 +1,34 @@
 import React, { useContext } from "react";
 import { UserContext } from './UserContext';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Box, ThemeProvider } from '@mui/system';
 
 // mapped onto a row of washers in home.js 
 function Washer(props) {
+    const state = useLocation(); 
+    console.log(state)
 
     // the user currently using the washer, if any 
+    if (!props){
+        console.log('is !props working')
+        return null
+    } 
 
     // users currently reserving the washer, if any 
+    let in_use = props['student_using']
+    let currently_reserved = props['students_reserved']
+    let bg_color = 'primary.white'
+    if (in_use){
+        bg_color = 'primary.in_use '
+
+    } else if (currently_reserved) {
+        bg_color = 'primary.reserved'
+
+    } else{
+        bg_color = 'primary.open'
+
+    }
 
     // the state of the washer (in-use, reserved, empty)
 
@@ -24,8 +43,10 @@ function Washer(props) {
                 theme={{
                     palette: {
                         primary: {
-                            main: '#4DAB9A',
-                            white: '#FFFFFF',
+                            white: "#FFFFFF",
+                            open: '#4DAB9A',
+                            reserved: "#FFDC49",
+                            in_use: '#FF7369',
                         },
                     },
                 }}
@@ -49,7 +70,7 @@ function Washer(props) {
                             borderRadius: '50%',
                             width: 25,
                             height: 25,
-                            bgcolor: 'primary.main',
+                            bgcolor: bg_color,
                             '&:hover': {
                                 backgroundColor: 'primary.main',
                                 opacity: [0.9, 0.8, 0.7],

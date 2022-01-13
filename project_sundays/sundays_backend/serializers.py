@@ -2,22 +2,25 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from project_sundays.sundays_backend.models import Student, Washer, Dryer 
 
-class StudentSerializer(serializers.HyperlinkedModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['token', 'dorm']
-class WasherSerializer(serializers.HyperlinkedModelSerializer): 
+    
+
+class WasherSerializer(serializers.ModelSerializer): 
     class Meta: 
         model = Washer 
         fields = ['dorm', 'number', 'student_using', 'students_reserving']
 
-class DryerSerializer(serializers.HyperlinkedModelSerializer): 
+
+class DryerSerializer(serializers.ModelSerializer): 
     class Meta: 
         model = Dryer 
         fields = ['dorm', 'number', 'student_using', 'students_reserving']
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     # student = StudentSerializer()
 
     class Meta:

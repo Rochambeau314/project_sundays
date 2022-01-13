@@ -29,11 +29,11 @@ function Washers(props){
             {washer_data.map((washer) =>
             <Grid item key = {washer.number} xs={0.25}>
                 <Washer 
-                dorm = {washer.dorm} 
-                number = {washer.number} 
-                student_using = {washer.student_using} 
-                students_reserving = {washer.students_reserving}
-                onClick = {(event) =>handleWasherClick(event, washer.number)}
+                    dorm = {washer.dorm} 
+                    number = {washer.number} 
+                    student_using = {washer.student_using} 
+                    students_reserving = {washer.students_reserving}
+                    onClick = {(event) => handleWasherClick(event, washer.number)}
                 />
             </Grid>
             )}
@@ -43,7 +43,9 @@ function Washers(props){
     let navigate = useNavigate();
     async function handleWasherClick(event, number){
         //console.log('washer clicked')
-        navigate(`../washer/${number}/${props.id_token}`, { replace: false });
+        let data = washer_data[number]
+        console.log(data)
+        navigate(`../WasherDetails/${number}/${props.id_token}`, {state : data} );
     }
 
     return(

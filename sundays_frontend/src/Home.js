@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Washer from './Washer';
 import Washers from './Washers';
 import Grid from '@mui/material/Grid';
+import {w3cwebsocket as W3CWebSocket} from "websocket"
 
 function Home(){
 
@@ -35,7 +36,6 @@ function Home(){
             console.log('user data', user_data)
         });
 
-
         axios.post(dryerURL, dorm, { headers: {"Authorization": `Token ${id_token}`} })
             .then((response) => {
             const dryer_data = response.data;
@@ -43,6 +43,26 @@ function Home(){
         });
       }, []);
 
+  // websocket connection
+  const socket = new W3CWebSocket('ws://127.0.0.1:8000/ws/dryer/')
+  
+  socket.onopen = (event) => {
+      console.log('socket opened!')
+      
+      // send data to socket backend; socket backend will automatically send something back 
+      socket.send(JSON.stringify({
+          'dorm': 'kissam',
+          'user': 'jason',
+          'washer': '1',
+          'action': 'add to waitlist'
+      }));
+  
+  }
+
+  // update data here 
+  socket.onmessage = (event) => {
+    console.log('onmessage called', JSON.parse(event.data))
+  }
     return(
         <div>
             {dorm['dorm']}

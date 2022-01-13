@@ -25,7 +25,7 @@ class Student(models.Model):
         ('V', 'Village')
     ]
     dorm = models.CharField(
-        max_length=1,
+        max_length=50,
         choices=DORM_LOCATIONS,
         # default=None,
     )
@@ -56,17 +56,17 @@ class Washer(models.Model):
         ('V', 'Village')
     ]
     dorm = models.CharField(
-        max_length=1,
+        max_length=50,
         choices=DORM_LOCATIONS,
     )
     # number 
     number = models.IntegerField()
 
-    # student currently using; many-to-one relationship = foreign key 
-    student_using = models.ForeignKey(Student, on_delete=models.CASCADE, default = None, null = True)
+    # student currently using; many-to-one relationship = foreign key
+    student_using = models.ForeignKey(User, related_name = 'current_washer_user', on_delete=models.CASCADE, default = None, null = True)
 
     # students currently reserving 
-    students_reserving = models.ManyToManyField(Student, default = None, null = True)
+    students_reserving = models.ManyToManyField(User, related_name = 'students_reserving_washer', default = None, null = True)
 
 class Dryer(models.Model):
     # location 
@@ -82,14 +82,14 @@ class Dryer(models.Model):
         ('V', 'Village')
     ]
     dorm = models.CharField(
-        max_length=1,
+        max_length=50,
         choices=DORM_LOCATIONS,
     )
     # number 
     number = models.IntegerField()
 
     # student currently using; many-to-one relationship = foreign key 
-    student_using = models.ForeignKey(Student, on_delete=models.CASCADE, default = None, null = True)
+    student_using = models.ForeignKey(Student, related_name = 'current_dryer_user', on_delete=models.CASCADE, default = None, null = True)
 
     # students currently reserving 
-    students_reserving = models.ManyToManyField(Student, default = None, null = True)
+    students_reserving = models.ManyToManyField(Student, related_name = 'students_reserving_dryer', default = None, null = True)

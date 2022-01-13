@@ -139,7 +139,7 @@ def GoogleOAuth(request, format=None):
         # new_user.student.access_token = access_token # currently a normal access token; will probably need to be replaced by a refresh token as AT will expire 
         # new_user.save()
     
-        link = 'http://127.0.0.1:3000/Home/' + token.key
+        link = 'http://127.0.0.1:3000/NewUser/' + token.key
         return redirect(link)
 
 @csrf_exempt
